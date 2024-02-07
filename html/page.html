@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="./css/sunlight.css" />
+	<script>
+		document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 19.2 + 'px'
+		window.onresize = function () {
+			document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 19.2 + 'px'
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<!-- <div class="indexContainer"> -->
+
+	<!-- 	<div class="text">
+			<div class="bt" id="bt"></div>
+			<p id="p"></p>
+		</div>
+		<div class="icon"> -->
+			 <video  src="" id="video" width="1920px" height="1080px" controls autoplay='true'>
+			  </video>
+		<!-- </div> -->
+<!-- 	</div> -->
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	  var video = document.getElementById('video');
+	
+	  // 添加视频结束事件监听器
+	  video.addEventListener('ended', function() {
+	    // 跳回首页，可以根据需要设置跳转的链接
+	    window.location.href = 'index06.html';
+	  });
+	});
+
+</script>
+
+	<script>
+		var pageDataIndex = getParameterByName('id');
+		fetchPageData(pageDataIndex);
+
+		function backIndex(from) {
+			window.location.href = "./index06.html";
+		}
+
+		function dispalyPageData(data) {
+			dataSpecific = data.data.academician;
+			console.log(dataSpecific)
+			// 插入视频
+			document.getElementById('video').src = "file:///c:/project/data/uploads/" + dataSpecific.videoSrc ;
+			// document.getElementById('video').src = "file:///E:/courseware/project/yuanshi/data/uploads/" + dataSpecific.videoSrc ;
+		}
+
+		// 获取URL参数函数
+		function getParameterByName(name) {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get(name);
+		}
+
+		function fetchPageData(pageDataIndex) {
+			pageDataIndex = getParameterByName('id');
+			console.log(pageDataIndex)
+			// 向后端发送请求，传递索引值
+			fetch('http://localhost:8001/template/academician/getAcademicianById/' + pageDataIndex)
+				.then(response => response.json())
+				.then(data => {
+					// 在前端页面展示返回的数据
+					console.log(data)
+					dispalyPageData(data);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+
+		}
+	
+	
+		var websocket = null;
+		//判断当前浏览器是否支持WebSocket
+		if ('WebSocket' in window) {
+			//改成你的地址
+			websocket = new WebSocket("ws://127.0.0.1:8001/api/websocket/100");
+		} else {
+			alert('当前浏览器 Not support websocket')
+		}
+	
+		//连接发生错误的回调方法
+		websocket.onerror = function () {
+			setMessageInnerHTML("WebSocket连接发生错误");
+		};
+	
+		//连接成功建立的回调方法
+		websocket.onopen = function () {
+			setMessageInnerHTML("WebSocket连接成功");
+			console.log("WebSocket连接成功")
+		}
+		var U01data, Uidata, Usdata
+		//接收到消息的回调方法
+		websocket.onmessage = function (event) {
+			console.log(event.data);
+			handleMessage(event.data);
+			setMessageInnerHTML(event);
+		}
+	
+		//连接关闭的回调方法
+		websocket.onclose = function () {
+			setMessageInnerHTML("WebSocket连接关闭");
+		}
+	
+		//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+		window.onbeforeunload = function () {
+			closeWebSocket();
+		}
+	
+		//将消息显示在网页上
+		function setMessageInnerHTML(innerHTML) {
+			// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		}
+	
+		//关闭WebSocket连接
+		function closeWebSocket() {
+			websocket.close();
+		}
+	
+		// //发送消息
+		// function send() {
+		// 	var message = document.getElementById('text').value;
+		// 	websocket.send('{"msg":"' + message + '"}');
+		// 	setMessageInnerHTML(message + "&#13;");
+		// }
+	
+		function backIndex() {
+			window.location.href = "./index06.html";
+	
+		}
+
+		
+	
+		function toPage(DataIndex) {
+			console.log("DataIndex")
+			console.log(DataIndex)
+			const targetURL = `page.html?id=${encodeURIComponent(DataIndex)}`;
+			window.location.href = targetURL;
+			// window.location.href = `./page.html?id=${encodeURIComponent(DataIndex)}`;
+		}
+		
+		function handleMessage(receiveMessage) {
+			if (receiveMessage <= "91680809175575928834") {
+				toPage(receiveMessage)
+			}
+			if (receiveMessage == "schema:2") {
+				window.location.href = "picture03.html";
+			}
+			if (receiveMessage == "schema:3") {
+				window.location.href = "video.html";
+			}
+			if (receiveMessage == "schema:1") {
+				backIndex()
+			}
+		
+		}
+	</script>

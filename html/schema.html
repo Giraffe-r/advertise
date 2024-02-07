@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function fetchPageData() {
+				
+				fetch('http://localhost:8001/template/dictionaries/getSchema')
+					.then(response => response.json())
+					.then(data => {
+						// 在前端页面展示返回的数据
+						console.log(data)
+						judgementData(data);
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			}
+			function judgementData(data){
+				dataSpecific=data.data.schema
+				if (dataSpecific=="1"){
+					window.location.href = "./index06.html";
+				}else if(dataSpecific=="2"){
+					window.location.href = "./picture03.html";
+				}else if(dataSpecific=="3"){
+					window.location.href = "./video.html";
+				}
+			}
+			fetchPageData()
+		</script>
+	</body>
+</html>

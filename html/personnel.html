@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+<body id="dataContainer">
+<div id="box0" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box1" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box2" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box3" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box4" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box5" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box6" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box7" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box8" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box9" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box10" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+<div id="box11" class="box">
+  <img id="imageAct" src="" alt="Image" class="crossfade">
+  <img id="imageStill" src="" alt="Image">
+</div>
+
+
+<script>
+	var dataPage;
+	var length;
+	var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+	var temp = [];
+	var dataArray = [];
+	var allData = []; // 用于存放全部院士数据的二位数组
+	
+	
+	function roa(arr) {
+		var temp = [];
+		var count = arr.length;
+		var shuffledArr = [...arr]; // 复制原数组，以免修改原数组
+	
+		for (i = 0; i < count; i++) {
+			var num = Math.floor(Math.random() * shuffledArr.length); // 生成随机数num
+			temp.push(shuffledArr[num]); // 获取shuffledArr[num]并放入temp
+			shuffledArr.splice(num, 1);
+		}
+		return temp;
+	}
+	
+	
+	
+	
+	function fetchDataPage() {
+		// 返回一个 Promise 对象
+		return new Promise((resolve, reject) => {
+			// 向后端发送请求，传递索引值
+			fetch('http://localhost:8001/template/academician/getFullRoration/1/10000')
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+	
+					const dataList = data.data.items;
+	
+					// 将获取到的 data 作为 Promise 的结果进行解析
+					resolve(dataList);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		});
+	}
+	
+	
+	
+// 在调用 fetchDataPage 后，将获取的数据存入数组
+			fetchDataPage()
+			    .then(dataList => {
+			        // 此时 dataList 包含了获取到的每一条数据，你可以对其进行进一步操作
+			    
+			        
+			        // 遍历 dataList，将每一条数据存入 dataArray
+			        for (const item of dataList) {
+			            dataArray.push(item);
+			        }
+				
+			        displayData(dataArray);
+					console.log("11111");
+					setTimeout(backShow(dataArray), 10000);
+					console.log("222222");
+					
+			    })
+			    .catch(error => {
+			        console.error("Error:", error);
+			    });
+				
+			var id = 1;
+			temp=roa(arr);
+			var i=12;
+			
+			function backShow(dataArray) {
+					    var page;
+					    if (i < dataArray.length && i >= 12) {
+					        page = 2;
+					    } else {
+					        page = 1;
+					    }
+					    
+					    if (page == 2) {
+					        if (i < dataArray.length) {
+					            setTimeout(function () {
+					                displayDataPage(dataArray[i],temp[id - 1]);
+					                i = i + 1;
+					                if (id % 12 !== 0) {
+					                    id = id + 1;
+					                } else {
+					                    id = 1;
+					                }
+					                backShow(dataArray); // 在延迟后递归调用
+					            }, 7000);
+					        } else {
+					            page = 1;
+					            i = 0;
+					            id = 1;
+					        }
+					    } else {
+					        if(i<12&&i>=0) {
+					            
+					                setTimeout(function () {
+					                    displayDataPage(dataArray[i], temp[id - 1]);
+					                    i = i + 1;
+					                    if (id % 12 !== 0) {
+					                        id = id + 1;
+					                    } else {
+					                        id = 1;
+					                    }
+					                    
+										backShow(dataArray); // 在延迟后递归调用
+					                }, 7000 );
+					            
+					        }else{
+								i=12;
+								backShow(dataArray);
+							}
+							
+					        temp = roa(arr);
+							
+					    }
+						if (i < 0) {
+						    return
+						}
+					}
+			
+			function displayData(dataPage) {
+				var boxes = document.getElementsByClassName("box");
+			
+				for (var i = 0; i < 12; i++) {
+					var dataSpecific = dataPage[i];
+			
+					var boxElement = boxes[i];
+					
+			  var imageAct = boxElement.getElementsByClassName("crossfade")[0]; // 获取class为"crossfade"的第一个元素
+			  var imageStill = boxElement.getElementsByTagName("img")[1]; //
+
+					imageAct.src = 'http://localhost:8001/img/' + dataSpecific.imgSrc + '.jpg';
+					imageStill.src = 'http://localhost:8001/img/' + dataSpecific.imgSrc + '.jpg'
+				}
+			}
+			
+			
+			
+			function displayDataPage(dataPage, index) {
+			  var boxes = document.getElementsByClassName("box");
+			  var boxElementPage = boxes[index];
+			 var imageAct = boxElementPage.getElementsByClassName("crossfade")[0]; // 获取class为"crossfade"的第一个元素
+			 var imageStill = boxElementPage.getElementsByTagName("img")[1]; //
+			  // imageStill.src='http://localhost:8001/img/' +lastDataPage.imgSrc+'.jpg';
+			
+			const nextImage = new Image();
+			
+			nextImage.src = 'http://localhost:8001/img/' +dataPage.imgSrc+'.jpg';
+			
+			imageAct.src = 'http://localhost:8001/img/'+dataPage.imgSrc+'.jpg'// 为动态img替换下一个图片的src
+			
+			nextImage.onload = () => {
+					  imageAct.classList.remove("crossfade"); // 移除动态img的隐藏特效
+					  imageAct.classList.add("fade-in"); // 为动态img的添加出现特效
+					  setTimeout(function() {
+						  // 动态img出现后0.5秒后，将静态img的图片替换成和动态img相同的图片
+						  imageStill.src = 'http://localhost:8001/img/'+dataPage.imgSrc+'.jpg'; 
+						  setTimeout(function() {
+							  // 静态img图片更换完成后，将动态img隐藏 等待下次调用
+							  imageAct.classList.remove("fade-in");
+							  imageAct.classList.add("crossfade");
+						  }, 500);
+					  }, 500);
+			}
+			 
+			}
+
+				
+	
+
+	
+	
+ //  const images = ["./img/1.png","./img/2.png", "./img/3.png"]; // 替换的图片列表
+ //  const imageAct = document.getElementById("imageAct");
+ //  const imageStill = document.getElementById("imageStill");
+ //  let currentImageIndex = 0;
+	
+  // /*
+  // 核心想法，利用两个img标签，一个动态，一个静态
+  
+  // 动态img负责特效
+  // 静态img负责显示图片
+  
+  // 动态img 除了运动时保持在左上侧 并隐藏
+  // */
+  // function carouselCXY()
+  // {
+	 //  const nextImageIndex = (currentImageIndex + 1) % images.length;
+	 //  const nextImage = new Image();
+	 //  nextImage.src = images[nextImageIndex];
+	  
+	 //  imageAct.src = images[nextImageIndex] // 为动态img替换下一个图片的src
+	  
+	 //  nextImage.onload = () => {
+		//   imageAct.classList.remove("crossfade"); // 移除动态img的隐藏特效
+		//   imageAct.classList.add("fade-in"); // 为动态img的添加出现特效
+		//   setTimeout(function() {
+		// 	  // 动态img出现后0.5秒后，将静态img的图片替换成和动态img相同的图片
+		// 	  imageStill.src = images[nextImageIndex]; 
+		// 	  setTimeout(function() {
+		// 		  // 静态img图片更换完成后，将动态img隐藏 等待下次调用
+		// 		  imageAct.classList.remove("fade-in");
+		// 		  imageAct.classList.add("crossfade");
+		// 	  }, 500);
+		//   }, 500);
+	 //  }
+	 //   currentImageIndex = nextImageIndex; // 图片序号加一
+  // }
+  
+
+  // setInterval(carouselCXY, 3000); // 每隔7秒替换图片
+  
+  
+  
+  
+  
+  
+</script>
+<script type="text/javascript">
+		
+		
+			var websocket = null;
+			//判断当前浏览器是否支持WebSocket
+			if ('WebSocket' in window) {
+				//改成你的地址
+				websocket = new WebSocket("ws://127.0.0.1:8001/api/websocket/100");
+			} else {
+				alert('当前浏览器 Not support websocket')
+			}
+		
+			//连接发生错误的回调方法
+			websocket.onerror = function () {
+				setMessageInnerHTML("WebSocket连接发生错误");
+			};
+		
+			//连接成功建立的回调方法
+			websocket.onopen = function () {
+				setMessageInnerHTML("WebSocket连接成功");
+				console.log("WebSocket连接成功")
+			}
+			var U01data, Uidata, Usdata
+			//接收到消息的回调方法
+			websocket.onmessage = function (event) {
+				console.log(event.data);
+				handleMessage(event.data);
+				setMessageInnerHTML(event);
+			}
+		
+			//连接关闭的回调方法
+			websocket.onclose = function () {
+				setMessageInnerHTML("WebSocket连接关闭");
+			}
+		
+			//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+			window.onbeforeunload = function () {
+				closeWebSocket();
+			}
+		
+			//将消息显示在网页上
+			function setMessageInnerHTML(innerHTML) {
+				// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+			}
+		
+			//关闭WebSocket连接
+			function closeWebSocket() {
+				websocket.close();
+			}
+		
+			// //发送消息
+			// function send() {
+			// 	var message = document.getElementById('text').value;
+			// 	websocket.send('{"msg":"' + message + '"}');
+			// 	setMessageInnerHTML(message + "&#13;");
+			// }
+		
+			function backIndex() {
+				window.location.href = "./index06.html";
+		
+			}
+		
+			function dispalyPageData(data) {
+				// 插入视频
+				document.getElementById('video').src = "video/" + data.video;
+			}
+		
+			function fetchPageData(pageDataIndex) {
+				// 向后端发送请求，传递索引值
+				fetch('http://localhost:8001/template/academician/getAcademicianById/' + pageDataIndex)
+					.then(response => response.json())
+					.then(data => {
+						// 在前端页面展示返回的数据
+						dispalyPageData(data);
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+		
+			}
+			var pageDataIndex;
+		
+			function toPage(DataIndex) {
+				console.log("DataIndex")
+				console.log(DataIndex)
+				const targetURL = `page.html?id=${encodeURIComponent(DataIndex)}`;
+				window.location.href = targetURL;
+				// window.location.href = `./page.html?id=${encodeURIComponent(DataIndex)}`;
+			}
+			
+			function handleMessage(receiveMessage) {
+				if (receiveMessage <= "91680809175575928834") {
+					toPage(receiveMessage)
+				}
+				if(receiveMessage =="schema:2"){
+					window.location.href = "picture03.html";
+				}
+				if(receiveMessage =="schema:3"){
+					window.location.href = "video.html";
+				}
+				if(receiveMessage =="schema:1"){
+					backIndex()
+				}
+				
+			}
+			
+		</script>
+
+
+</body>
+</html>

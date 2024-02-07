@@ -1,0 +1,18 @@
+body{
+	width:1920px;
+	height:1080px;
+	 overflow: hidden;
+}
+.video-carousel {
+  width: 100%; /* 设置容器宽度 */
+  overflow: hidden;
+}
+
+.video-slide {
+  width: 100%; /* 视频宽度占满容器 */
+  display: none; /* 初始隐藏除第一个视频外的其他视频 */
+}
+
+.video-slide:first-child {
+  display: block; /* 显示第一个视频 */
+}

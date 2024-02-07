@@ -1,0 +1,47 @@
+.lunbo {
+            background-color:white;
+            width:1920px;
+            height: 1080px;
+            margin: 0 auto;
+            background-size: cover;
+            overflow:hidden;
+        }
+
+        .lunbo img {
+            width: 320px;
+            height:540px;
+        }
+        
+		
+.box{
+		background-color:#2d6eb8;
+		width:16.55%;
+		float:left;
+		height:50%;
+		position: relative;
+		border: 0.01px solid #000;
+	}
+.name{
+		color: white;
+		font-size: 30px;
+		position: absolute;
+		bottom: 20%; /* 文本距离底部的距离 */
+		left: 0; /* 文本距离左侧的距离 */
+		margin: 0;
+	}
+.type{
+	color: white;
+	font-size: 30px;
+	position: absolute;
+	bottom:12%; /* 文本距离底部的距离 */
+	left: 0; /* 文本距离左侧的距离 */
+	margin: 0;
+}
+.direction{
+	color: white;
+	font-size: 30px;
+	position: absolute;
+	bottom:4%; /* 文本距离底部的距离 */
+	left: 0; /* 文本距离左侧的距离 */
+	margin: 0;
+}

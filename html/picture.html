@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body id="dataContainer">
+	<div id="box0" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box1" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box2" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box3" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box4" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box5" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box6" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box7" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box8" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box9" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box10" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+	<div id="box11" class="box">
+		<img id="imageAct" src="" alt="Image" class="crossfade">
+		<img id="imageStill" src="" alt="Image">
+	</div>
+
+
+	<script>
+		var dataPage;
+		var length;
+		var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+		var temp = [];
+		var dataArray = [];
+		var allData = []; // 用于存放全部院士数据的二位数组
+		var dataFixArray = [];
+		// var arr = [];
+
+		// function rndfn(min,max,n){
+		//     // 将整数取值范围作为变量提取出来
+		//     var min1 = min+1,
+		//         max = max;
+
+		//     // 健壮性:参数校验
+
+		//     // 准备一个容器
+		//     arr = [];
+		// 	arr.length=0;
+		//     // 循环
+		//     for(var i = 0 ; i < n ; i++){
+		//         // 创建一个随机数
+		//         var rnd = GetRandomNum(min1,max);
+		//         // 检查是否重复
+		//         if(checkInArr(arr, rnd)){
+		//             i--;
+		//         }else{
+		//             arr.push(rnd);
+		// 			console.log("成功");
+		//         }
+		//     }
+		// 	console.log(arr);
+		//     return arr;
+		// }
+
+		// // 获取某个范围的随机数
+		// function GetRandomNum(Min, Max) {
+		//     var Range = Max - Min;
+		//     var Rand = Math.random();
+		// 	console.log("GetRandomNum");
+		//     return (Min + Math.round(Rand * Range));
+		// }
+		// // 检查数组内是否重复
+		// function checkInArr(arr,rnd){
+
+		//     for(var i = 0; i < arr.length; i++){
+		//         if(rnd === arr[i]){
+		//             return true;
+		//         }
+		//     }
+		// 	console.log("checkInArr");
+		//     return false;
+		// }
+
+
+
+
+
+		function getRandomBetweenMinAndMax(Min, Max) {
+			var Range = Max - Min;
+			var Rand = Math.random();
+			var num = Min + Math.round(Rand * Range); //四舍五入
+			return num;
+		}
+
+
+
+
+		function roa(min) {
+
+			var randoms = [];
+			while (true) {
+				var isExists = false;
+				// 获取一个10–100范围的数
+				// var random = parseInt(10 + (90 - 10) * (Math.random()))
+				// 获取一个min–12范围的数
+				// var random = getRandomBetweenMinAndMax(min, 11); // 介于min和12之间的随机整数
+				console.log("min", min);
+				// var random = Math.floor(Math.random() * (12-min) + min);
+				var random = Math.round(Math.random() * (11 - min) + min)
+				// 判断当前随机数是否已经存在
+				console.log("randoms.length:", randoms.length)
+				for (var i = 0; i < randoms.length; i++) {
+					if (random === randoms[i]) {
+						isExists = true;
+						console.log("结束1")
+						break;
+					}
+				}
+				// 如果不存在，则添加进去
+				if (!isExists)
+					randoms.push(random);
+				// 如果有10位随机数了，就跳出gun
+				if (randoms.length >= 12 - min) {
+					console.log("结束2")
+					break;
+				}
+
+			}
+			console.log(randoms);
+			return randoms;
+		}
+
+
+
+		// function roa(min) {
+		// 	var temp = [];
+		// 	var count = arr.length;
+		// 	var shuffledArr = [...arr]; // 复制原数组，以免修改原数组
+		// 	var tempCount = count-min;
+		// 	for (i = 0; i < tempCount; i++) {
+		// 		var num = Math.floor(Math.random() * shuffledArr.length); // 生成随机数num
+		// 		if (shuffledArr[num]>=min){
+		// 			temp.push(shuffledArr[num]); // 获取shuffledArr[num]并放入temp
+		// 		}
+		// 		shuffledArr.splice(num, 1);
+		// 	}
+
+		// 	console.log("temp");
+		// 	console.log(temp);
+		// 	return temp;
+
+		// }
+
+
+
+
+
+		function fetchDataPage() {
+			// 返回一个 Promise 对象
+			return new Promise((resolve, reject) => {
+				// 向后端发送请求，传递索引值
+				fetch('http://localhost:8001/template/academician/getFrontOnWall/24')
+					.then(response => response.json())
+					.then(data => {
+						console.log(data);
+
+						const dataList = data.data.list;
+
+						// 将获取到的 data 作为 Promise 的结果进行解析
+						resolve(dataList);
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			});
+		}
+
+		function fetchFixDataPage() {
+			// 返回一个 Promise 对象
+			return new Promise((resolve, reject) => {
+				// 向后端发送请求，传递索引值
+				fetch('http://localhost:8001/template/academician/getAllFixed')
+					.then(response => response.json())
+					.then(data => {
+						console.log(data);
+
+						const dataFixList = data.data.items;
+
+						// 将获取到的 data 作为 Promise 的结果进行解析
+						resolve(dataFixList);
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			});
+		}
+
+		var dataFix = [];
+		var dataFixLength
+		fetchFixDataPage().then(dataFixList => {
+			for (const item of dataFixList) {
+				dataFix.push(item);
+				console.log("dataFix", dataFix);
+			}
+			console.log(typeof (dataFixLength))
+			dataFixLength = dataFix.length;
+			console.log(typeof (dataFixLength))
+			// console.log(dataFix);
+			console.log("dataFixLength");
+			console.log(dataFixLength);
+			temp = roa(dataFixLength);
+		})
+
+
+
+		var id = 1;
+		// temp = rndfn(dataFixLength,11,10);
+		// randoms.length=0;
+
+		var i = 12;
+		// 在调用 fetchDataPage 后，将获取的数据存入数组
+		fetchDataPage()
+			.then(dataList => {
+				// 此时 dataList 包含了获取到的每一条数据，你可以对其进行进一步操作
+
+
+				// 遍历 dataList，将每一条数据存入 dataArray
+				for (const item of dataList) {
+					dataArray.push(item);
+				}
+
+				dataFixArray = dataFix.concat(dataArray);
+				console.log(dataFixArray);
+
+				// 初始化12张图片
+				displayData(dataFixArray);
+				// 将图片12个为一组放入一个二位数组
+				var numberOfGroups = Math.trunc(dataArray.length / 12);
+				for (var i = 0; i < numberOfGroups; i++) {
+					allData.push(dataArray.splice(0, 12)) // 12个为一组，每次切出来12个
+					console.log("allData");
+					console.log(allData);
+				}
+				setTimeout(backShowCXY(1, dataFixLength, 0), 10000); // 初始化10秒后开始轮播
+
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			});
+
+		// function backShowCXY(pageIndex, boxIndex,tempIndex) {
+		// 	// 首先判断当前序号是否超过11
+		// 	if (boxIndex == 12) {
+		// 		console.log("第二组开始");
+		// 		// 超过11则说明需要更换下一组了，则boxIndex置为0，组序号加一
+		// 		boxIndex = 0;
+		// 		tempIndex = 0;
+		// 		pageIndex = pageIndex + 1;
+		// 		console.log("dataFixLength3",dataFixLength);
+		// 		temp = roa(dataFixLength);
+		// 		console.log("temp",temp);
+		// 		if (pageIndex == allData.length) {
+		// 			// 判断当前组序号是否超过了总组数，如果超过了，则说明需要从第一组开始轮播了，pageIndex置为0
+		// 			pageIndex = 0;
+		// 			boxIndex = 0;
+		// 			tempIndex = 0;
+		// 			temp = roa(dataFixLength);
+		// 			setTimeout(function() {
+		// 				displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 				backShowCXY(pageIndex, boxIndex + 1,tempIndex+1);
+		// 			}, 1000);
+		// 		} else {
+		// 			// 当前组序号未超过总组数，则轮播组号加一的院士
+		// 			setTimeout(function() {
+		// 				displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 				backShowCXY(pageIndex, boxIndex + 1,tempIndex+1);
+		// 			}, 1000);
+		// 		}
+		// 	}
+		// 	// 首先判断当前序号是否超过11
+		// 	// 如果不是最后一个院士，则继续利用当前组的数据轮播
+		// 	else {
+		// 		setTimeout(function() {
+		// 			displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 			backShowCXY(pageIndex, boxIndex + 1,tempIndex+1); // 轮播当前组的下一个院士
+		// 		}, 1000);
+		// 	}
+		// }
+
+
+
+		// function backShowCXY(pageIndex, boxIndex, tempIndex) {
+		// 	if (tempIndex == 10) {
+		// 		// 当tempIndex达到10时，重置为0并执行setTimeout
+		// 		tempIndex = 0;
+		// 		boxIndex = 0;
+		// 		pageIndex = pageIndex + 1;
+		// 		temp = roa(dataFixLength);
+		// 		setTimeout(function() {
+		// 			displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 			backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+		// 		}, 1000);
+		// 	} else if (boxIndex == 12) {
+		// 		console.log("第二组开始");
+		// 		boxIndex = 0;
+		// 		tempIndex = 0;
+		// 		pageIndex = pageIndex + 1;
+		// 		console.log("dataFixLength3", dataFixLength);
+		// 		temp = roa(dataFixLength);
+		// 		console.log("temp", temp);
+		// 		if (pageIndex == allData.length) {
+		// 			pageIndex = 0;
+		// 			setTimeout(function() {
+		// 				displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 				backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+		// 			}, 1000);
+		// 		} else {
+		// 			setTimeout(function() {
+		// 				displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 				backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+		// 			}, 1000);
+		// 		}
+		// 	} else {
+		// 		setTimeout(function() {
+		// 			displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+		// 			backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+		// 		}, 1000);
+		// 	}
+		// }
+
+
+
+		function backShowCXY(pageIndex, boxIndex, tempIndex) {
+			if (tempIndex == 12-dataFixLength) {
+				console.log("第二组开始");
+				boxIndex = 0;
+				tempIndex = 0;
+				pageIndex = pageIndex + 1;
+				console.log("dataFixLength3", dataFixLength);
+				temp = roa(dataFixLength);
+				console.log("temp", temp);
+				temp = roa(dataFixLength);
+				if (pageIndex == allData.length) {
+					pageIndex = 0;
+					setTimeout(function () {
+						displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+						backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+					}, 7000);
+				} else {
+					setTimeout(function () {
+						displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+						backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+					}, 7000);
+				}
+			}
+			else {
+				setTimeout(function () {
+					displayDataPage(allData[pageIndex][boxIndex], temp[tempIndex]);
+					backShowCXY(pageIndex, boxIndex + 1, tempIndex + 1);
+				}, 7000);
+			}
+		}
+
+
+
+		function displayData(dataPage) {
+			var boxes = document.getElementsByClassName("box");
+
+			for (var i = 0; i < 12; i++) {
+				var dataSpecific = dataPage[i];
+
+				var boxElement = boxes[i];
+
+				var imageAct = boxElement.getElementsByClassName("crossfade")[0]; // 获取class为"crossfade"的第一个元素
+				var imageStill = boxElement.getElementsByTagName("img")[1]; //
+
+				imageAct.src = 'http://localhost:8001/img/' + dataSpecific.imgSrc + '.jpg';
+				imageStill.src = 'http://localhost:8001/img/' + dataSpecific.imgSrc + '.jpg'
+			}
+		}
+
+
+
+		function displayDataPage(dataPage, index) {
+			var boxes = document.getElementsByClassName("box");
+			console.log(index)
+			var boxElementPage = boxes[index];
+			console.log(boxElementPage)
+			var imageAct = boxElementPage.getElementsByClassName("crossfade")[0]; // 获取class为"crossfade"的第一个元素
+			var imageStill = boxElementPage.getElementsByTagName("img")[1]; //
+			console.log(imageStill.src);
+			// imageStill.src = 'http://localhost/img/' + lastDataPage.imgSrc + '.jpg';
+
+			const nextImage = new Image();
+
+			nextImage.src = 'http://localhost:8001/img/' + dataPage.imgSrc + '.jpg';
+
+			imageAct.src = 'http://localhost:8001/img/' + dataPage.imgSrc + '.jpg' // 为动态img替换下一个图片的src
+
+			nextImage.onload = () => {
+				imageAct.classList.remove("crossfade"); // 移除动态img的隐藏特效
+				imageAct.classList.add("fade-in"); // 为动态img的添加出现特效
+				setTimeout(function () {
+					// 动态img出现后0.5秒后，将静态img的图片替换成和动态img相同的图片
+					imageStill.src = 'http://localhost:8001/img/' + dataPage.imgSrc + '.jpg';
+					setTimeout(function () {
+						// 静态img图片更换完成后，将动态img隐藏 等待下次调用
+						imageAct.classList.remove("fade-in");
+						imageAct.classList.add("crossfade");
+					}, 500);
+				}, 500);
+			}
+
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		var websocket = null;
+		//判断当前浏览器是否支持WebSocket
+		if ('WebSocket' in window) {
+			//改成你的地址
+			websocket = new WebSocket("ws://127.0.0.1:8001/api/websocket/100");
+		} else {
+			alert('当前浏览器 Not support websocket')
+		}
+
+		//连接发生错误的回调方法
+		websocket.onerror = function () {
+			setMessageInnerHTML("WebSocket连接发生错误");
+		};
+
+		//连接成功建立的回调方法
+		websocket.onopen = function () {
+			setMessageInnerHTML("WebSocket连接成功");
+			console.log("WebSocket连接成功")
+		}
+		var U01data, Uidata, Usdata
+		//接收到消息的回调方法
+		websocket.onmessage = function (event) {
+			console.log(event.data);
+			handleMessage(event.data);
+			setMessageInnerHTML(event);
+		}
+
+		//连接关闭的回调方法
+		websocket.onclose = function () {
+			setMessageInnerHTML("WebSocket连接关闭");
+		}
+
+		//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+		window.onbeforeunload = function () {
+			closeWebSocket();
+		}
+
+		//将消息显示在网页上
+		function setMessageInnerHTML(innerHTML) {
+			// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		}
+
+		//关闭WebSocket连接
+		function closeWebSocket() {
+			websocket.close();
+		}
+
+		// //发送消息
+		// function send() {
+		// 	var message = document.getElementById('text').value;
+		// 	websocket.send('{"msg":"' + message + '"}');
+		// 	setMessageInnerHTML(message + "&#13;");
+		// }
+
+		function backIndex() {
+			window.location.href = "./index06.html";
+
+		}
+
+		function dispalyPageData(data) {
+			// 插入视频
+			document.getElementById('video').src = "video/" + data.video;
+		}
+
+		function fetchPageData(pageDataIndex) {
+			// 向后端发送请求，传递索引值
+			fetch('http://localhost:8001template/academician/getAcademicianById/' + pageDataIndex)
+				.then(response => response.json())
+				.then(data => {
+					// 在前端页面展示返回的数据
+					dispalyPageData(data);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+
+		}
+		var pageDataIndex;
+
+		function toPage(DataIndex) {
+			console.log("DataIndex")
+			console.log(DataIndex)
+			const targetURL = `page.html?id=${encodeURIComponent(DataIndex)}`;
+			window.location.href = targetURL;
+			// window.location.href = `./page.html?id=${encodeURIComponent(DataIndex)}`;
+		}
+
+		function handleMessage(receiveMessage) {
+			if (receiveMessage <= "91680809175575928834") {
+				toPage(receiveMessage)
+			}
+			if (receiveMessage == "schema:2") {
+				window.location.href = "picture03.html";
+			}
+			if (receiveMessage == "schema:3") {
+				window.location.href = "video.html";
+			}
+			if (receiveMessage == "schema:1") {
+				backIndex()
+			}
+
+		}
+	</script>
+
+
+</body>
+
+</html>

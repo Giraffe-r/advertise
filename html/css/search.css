@@ -1,0 +1,61 @@
+/* CSS样式 */
+    /* @keyframes backgroundAnimation {
+      0% {
+        background-color: #FFC0CB; 
+      }
+      50% {
+        background-color: #87CEEB; 
+      }
+      100% {
+        background-color: #FFC0CB; 
+      }
+    }
+    
+    body {
+      animation: backgroundAnimation 6s infinite; 
+    } */
+	
+	body{
+		background-color: #87CEEB;
+		width:1920px;
+		height: 1080px;
+		margin: 0 auto;
+		background-size: cover;
+		overflow:hidden;
+	}
+    .search-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 100px;
+    }
+    .search-input {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      transition: box-shadow 0.3s ease;
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .search-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      margin-left: 10px;
+      cursor: pointer;
+      /* transition: background-color 0.3s ease; */
+    }
+   .search-button:hover {
+      background-color: #45a049;
+    }
+	.search-result{
+	  float:left;
+	}
